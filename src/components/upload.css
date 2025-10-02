@@ -1,0 +1,29 @@
+/* Custom button styling */
+.btn-primary {
+    background-color: #00cc1f;
+    border-color: #00b548;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #009947;
+    transform: scale(1.02);
+  }
+  
+  /* Card styling */
+  .card {
+    border: none;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Input field styling */
+  .form-control:focus {
+    border-color: #00cc58;
+    box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+  }
+  
