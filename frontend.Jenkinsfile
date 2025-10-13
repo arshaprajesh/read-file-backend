@@ -1,48 +1,49 @@
 pipeline {
   agent any
 
+  environment {
+    ECR_REGISTRY = '303785347823.dkr.ecr.us-east-1.amazonaws.com'
+    ECR_REPO = 'read-user-file-frontend'
+    IMAGE_NAME = 'read-user-file-fe'
+  }
+
   stages {
     stage('Checkout Code') {
       steps {
-        // This clones the repo and sets the working directory to root
         checkout scm
         echo 'Repository cloned. Working from root directory.'
       }
     }
-    stage('Build JAR') {
+
+    stage('Install & Build Frontend') {
       steps {
-        sh './mvnw clean package -DskipTests'
-        echo 'JAR built successfully.'
+        sh 'npm install'
+        sh 'npm run build'
+        echo 'Frontend build completed.'
       }
     }
 
-    stage('Build') {
+    stage('Build Docker Image') {
       steps {
-        // Assumes backend Dockerfile is in root, frontend in ./frontend
-        sh 'docker build -t read_file_frontend .'
-        echo 'Build successfull.'
+        sh 'docker build -t $IMAGE_NAME .'
         sh 'docker images'
-        echo 'image successfull.'
+        echo 'Docker image built.'
       }
     }
 
     stage('Push to ECR') {
       steps {
-        // Replace with your actual ECR login and repo URLs
-        sh 'aws ecr get-login-password | docker login --username AWS --password-stdin 303785347823.dkr.ecr.us-east-1.amazonaws.com/read_user_file_fd'
-        echo 'login successfully.'
-        sh 'docker tag read-user-file-be 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file'
-        echo 'tag successfully.'
-        sh 'docker push 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file'
-        echo 'pushed successfully.'
-
+        sh 'aws ecr get-login-password | docker login --username AWS --password-stdin $ECR_REGISTRY'
+        sh 'docker tag $IMAGE_NAME $ECR_REGISTRY/$ECR_REPO'
+        sh 'docker push $ECR_REGISTRY/$ECR_REPO'
+        echo 'Image pushed to ECR.'
       }
     }
-    stage('Test') {
-          steps {
-            echo 'Pipeline is working!'
-          }
-        }
 
+    stage('Test') {
+      steps {
+        echo '✅ Frontend pipeline completed successfully.'
+      }
+    }
   }
 }
