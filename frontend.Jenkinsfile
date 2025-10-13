@@ -19,7 +19,7 @@ pipeline {
     stage('Build') {
       steps {
         // Assumes backend Dockerfile is in root, frontend in ./frontend
-        sh 'docker build -t read-user-file-be .'
+        sh 'docker build -t read_file_frontend .'
         echo 'Build successfull.'
         sh 'docker images'
         echo 'image successfull.'
@@ -29,7 +29,7 @@ pipeline {
     stage('Push to ECR') {
       steps {
         // Replace with your actual ECR login and repo URLs
-        sh 'aws ecr get-login-password | docker login --username AWS --password-stdin 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file'
+        sh 'aws ecr get-login-password | docker login --username AWS --password-stdin 303785347823.dkr.ecr.us-east-1.amazonaws.com/read_user_file_fd'
         echo 'login successfully.'
         sh 'docker tag read-user-file-be 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file'
         echo 'tag successfully.'
