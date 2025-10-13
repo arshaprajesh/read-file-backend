@@ -39,12 +39,12 @@ function UploadFile(){
         
 
         
-      const payload = {"file-path" : selectFile,'user-name':userName,"user-date": uploadDate,'user-state':userState}
+      const payload = { "filePath" : selectFile,'userName':userName,"userDate": uploadDate,'userState':userState}
         //formData.append('file-path', uploadFile);
         console.log('payload:', payload)
     
         try { 
-          const response = await axios.post('http://localhost:5000/userDetails/userFile', payload,
+          const response = await axios.post('http://localhost:8080/userDetails/userFile', payload,
           {
             headers: {
               'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ function UploadFile(){
         }
     
         try {
-          const response = await axios.get(`http://localhost:5000/userDetails/userFile/search?name=${searchName}`);
+          const response = await axios.get(`http://localhost:8080/userDetails/userFile/search?name=${searchName}`);
           console.log('Search results:', response.data);
           setSearchResults(response.data);
         } catch (error) {
