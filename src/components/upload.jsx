@@ -37,11 +37,16 @@ function UploadFile(){
           return;
         }
         
+        const formData = new FormData();
+        formData.append('file', uploadFile);
+        formData.append('userName', userName);
+        formData.append('userDate', uploadDate);
+        formData.append('userState', userState);
 
         
-      const payload = { "filePath" : selectFile,'userName':userName,"userDate": uploadDate,'userState':userState}
+      /* const payload = { "filePath" : selectFile,'userName':userName,"userDate": uploadDate,'userState':userState}
         //formData.append('file-path', uploadFile);
-        console.log('payload:', payload)
+        console.log('payload:', payload) */
     
         try { 
           const response = await axios.post('http://localhost:8080/userDetails/userFile', payload,

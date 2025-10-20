@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: dev-playground
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata: 
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file-fe:latest
+          ports:
+            - containerPort: 80
