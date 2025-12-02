@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: 303785347823.dkr.ecr.us-east-1.amazonaws.com/read-user-file-fe:latest
+          image: 303785347823.dkr.ecr.us-east-1.amazonaws.com/read_user_file_fd:latest
           ports:
             - containerPort: 80

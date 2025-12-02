@@ -49,7 +49,7 @@ function UploadFile(){
         console.log('payload:', payload) */
     
         try { 
-          const response = await axios.post('http://localhost:8080/userDetails/userFile', payload,
+          const response = await axios.post('http://backend.dev-playground.svc.cluster.local:8081/userDetails/userFile', payload,
           {
             headers: {
               'Content-Type': 'application/json'
@@ -100,7 +100,7 @@ function UploadFile(){
         }
     
         try {
-          const response = await axios.get(`http://localhost:8080/userDetails/userFile/search?name=${searchName}`);
+          const response = await axios.get(`http://backend.dev-playground.svc.cluster.local:8081/userDetails/userFile/search?name=${searchName}`);
           console.log('Search results:', response.data);
           setSearchResults(response.data);
         } catch (error) {
